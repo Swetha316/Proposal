@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be Mine?</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: background 1.5s ease;
+        }
+
+        h1, h2 {
+            color: #ffffff;
+            font-family: 'Helvetica Neue', sans-serif;
+            margin: 0;
+            font-size: 4vw; /* Reduced font size for header */
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        #start-btn {
+            padding: 15px 35px;
+            font-size: 1.5em;
+            color: white;
+            background: #6dd5ed;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            margin-top: 30px;
+        }
+
+        #start-btn:hover {
+            background: red;
+            transform: scale(1.05);
+        }
+
+        #question-box {
+            display: none;
+            margin-top: 40px;
+            padding: 0 5%;
+        }
+
+        /* Make Yes and No buttons appear in the same line */
+        #yes-btn, #no-btn {
+            padding: 12px 25px;
+            font-size: 1em;
+            color: white;
+            background: #6dd5ed;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin: 15px;
+            display: inline-flex; /* Changed to inline-flex */
+            align-items: center;
+            gap: 10px;
+        }
+
+        #yes-btn:hover {
+            background: #6dd5ed;
+        }
+
+        #no-btn {
+            background: #f8b195;
+        }
+
+        #no-btn:hover {
+            background: #f67280;
+        }
+
+        #final-message {
+            display: none;
+            text-align: center;
+            color: red;
+            padding: 20px;
+            border-radius: 15px;
+            background: #a0ded0;
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        #final-message h2 {
+            font-size: 2.5em;
+            color: red;
+            margin-bottom: 20px;
+        }
+
+        #final-message p {
+            font-size: 1.2em;
+            margin-top: 0;
+        }
+
+        #welcome-message {
+            font-size: 2em;
+            color: #ffffff;
+            margin-top: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center center;
+            background-size: contain;
+            animation: floatHearts 4s infinite ease-in-out;
+        }
+
+        @keyframes floatHearts {
+            0% {
+                transform: translateY(0) rotate(-45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-400px) rotate(-45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            h1, h2 {
+                font-size: 6vw;
+            }
+
+            #start-btn {
+                padding: 10px 30px;
+                font-size: 1.2em;
+            }
+
+            #yes-btn, #no-btn {
+                font-size: 0.9em;
+                padding: 10px 20px;
+            }
+
+            #final-message h2 {
+                font-size: 2em;
+            }
+
+            #final-message p {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1, h2 {
+                font-size: 8vw;
+            }
+
+            #start-btn {
+                padding: 8px 20px;
+                font-size: 1em;
+            }
+
+            #yes-btn, #no-btn {
+                font-size: 0.8em;
+                padding: 8px 15px;
+            }
+
+            #final-message h2 {
+                font-size: 1.8em;
+            }
+
+            #final-message p {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="welcome-message">Welcome to a Magical Moment ✨</h1>
+    <button id="start-btn">Start the Journey</button>
+
+    <div id="question-box">
+        <h2>Will You Be Mine Forever? 💖</h2>
+        <button id="yes-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/3534/3534267.png" alt="Yes" width="20"> Yes, I Will! ❤️
+        </button>
+        <button id="no-btn">
+            <img src="https://cdn-icons-png.flaticon.com/512/1828/1828843.png" alt="No" width="20"> Sorry, No 😢
+        </button>
+    </div>
+
+    <div id="final-message">
+        <h2>💞 Yes! You Said Yes! 💞</h2>
+        <p>You just made this the happiest day of my life. Thank you for being so special. ❤️</p>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="E:/Swetha/HTML/audio/Song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script>
+        const startBtn = document.getElementById('start-btn');
+        const questionBox = document.getElementById('question-box');
+        const welcomeMessage = document.getElementById('welcome-message');
+        const finalMessage = document.getElementById('final-message');
+        const bgMusic = document.getElementById('bg-music');
+
+        startBtn.addEventListener('click', () => {
+            bgMusic.play();
+            startBtn.style.display = 'none';
+            welcomeMessage.style.display = 'none';
+            questionBox.style.display = 'block';
+
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+                heart.style.width = heart.style.height = Math.random() * 20 + 30 + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+            }, 300);
+        });
+
+        document.getElementById('yes-btn').addEventListener('click', () => {
+            document.body.style.background = 'linear-gradient(to right, #ffefba, #ffffff)';
+            questionBox.style.display = 'none';
+            finalMessage.style.display = 'block';
+            finalMessage.style.opacity = 1;
+        });
+
+        document.getElementById('no-btn').addEventListener('click', () => {
+            alert('Oh no 😢! It’s okay, I still cherish you.');
+        });
+    </script>
+</body>
+</html>
